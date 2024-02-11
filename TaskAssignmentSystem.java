@@ -49,12 +49,14 @@ class TeamMember {
     private String name;
     private List<String> skills;
     private boolean available;
+    private int workload;
 
-    public TeamMember(int id, String name, List<String> skills, boolean available) {
+    public TeamMember(int id, String name, List<String> skills, boolean available, int workload) {
         this.id = id;
         this.name = name;
         this.skills = skills;
         this.available = available;
+        this.workload = workload;
     }
 
     public int getId() {
@@ -73,9 +75,13 @@ class TeamMember {
         return available;
     }
 
+    public int getWorkload() {
+        return workload;
+    }
+
     @Override
     public String toString() {
-        return String.format("ID: %d Name: %s, Skills: %s, Available: %b", id, name, skills, available);
+        return String.format("ID: %d Name: %s, Skills: %s, Available: %b, Workload: %d", id, name, skills, available, workload);
     }
 }
 
@@ -221,10 +227,13 @@ public class TaskAssignmentSystem {
             for (String skill : skillsArray) {
                 skills.add(skill.trim());
             }
+            System.out.print("Enter member workload: ");
+            int workload = scanner.nextInt();
+            scanner.nextLine(); // Consume newline
             System.out.print("Is member available? (true/false): ");
             boolean available = scanner.nextBoolean();
             scanner.nextLine(); // Consume newline
-            TeamMember member = new TeamMember(id, name, skills, available);
+            TeamMember member = new TeamMember(id, name, skills, available, workload);
             teamMembers.add(member);
             System.out.println("Member added successfully.");
         }
@@ -259,6 +268,7 @@ public class TaskAssignmentSystem {
                     System.out.print("ID : " + member.getId());
                     System.out.println(" - Name: " + member.getName());
                     System.out.println("   Skills: " + member.getSkills());
+                    System.out.println("   Workload: " + member.getWorkload());
                     foundMember = true;
                 }
             }
